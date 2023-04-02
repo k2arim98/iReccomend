@@ -1,29 +1,47 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// @dart=2.9
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:irecommend/auth/auth.dart';
 
 import 'package:irecommend/data/data.dart';
+import 'package:irecommend/main.dart';
 import 'package:irecommend/screens/home/Models/model.dart';
 import 'package:irecommend/screens/home/provider/homeProvider.dart';
+import 'package:irecommend/screens/login/UI/loginPage.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({Key key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  HomeProvider? providerTrue;
-  HomeProvider? providerFalse;
+  HomeProvider providerTrue;
+  HomeProvider providerFalse;
   static const _padding = 24.0;
   static const _spacing = 10.0;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
        providerTrue = Provider.of<HomeProvider>(context, listen: true);
     providerFalse = Provider.of<HomeProvider>(context);
     return Scaffold(
+      key: _scaffoldKey,
+    endDrawer: Drawer(
+
+      child: Column(
+        children: [
+          DrawerHeader(child: TextButton(onPressed: () {
+            AuthService().signOut(context);
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>LoginPage()));
+          },child: Text("sign out"),))
+        ],
+      ),
+    ),
       body: SafeArea(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -104,10 +122,16 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          const CircleAvatar(
-            backgroundColor: kAvatarColor,
-            radius: 26,
-            backgroundImage: AssetImage("assets/images/avatar.png"),
+          GestureDetector(
+            onTap: () {
+              log("button pressed");
+            _scaffoldKey.currentState.openEndDrawer();
+            },
+            child: const CircleAvatar(
+              backgroundColor: kAvatarColor,
+              radius: 26,
+              backgroundImage: AssetImage("assets/images/avatar.png"),
+            ),
           ),
         ],
       ),
@@ -251,8 +275,8 @@ class _HomeState extends State<Home> {
                       (i) => GestureDetector(
                         onTap: ()async{
                           log(data_2[i]["name"]);
-                         await providerFalse!.getCategoryData(data_2[i]["name"]);
-                          log(providerFalse!.categoryL.length.toString());
+                         await providerFalse.getCategoryData(data_2[i]["name"]);
+                          log(providerFalse.categoryL.length.toString());
                           setState(() {
                             colorIndex=i;
                           });

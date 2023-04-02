@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "246377220737",
+    "project_id": "irecomend",
+    "storage_bucket": "irecomend.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246377220737:android:afaba64fc7e0d241f89b80",
+        "android_client_info": {
+          "package_name": "com.example.irecommend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246377220737-hqacmun2b4354cqomb2a2jlko7l6odmg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcZoPsn_widv0DPm-RoFxq-wFmyUYJHo4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246377220737-hqacmun2b4354cqomb2a2jlko7l6odmg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

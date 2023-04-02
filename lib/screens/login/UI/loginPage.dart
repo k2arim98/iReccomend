@@ -1,11 +1,13 @@
 
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, prefer_const_constructors
 
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:irecommend/routings/routing.dart';
 import 'package:irecommend/screens/home/UI/homeScreen.dart';
 import 'package:irecommend/screens/login/provider/loginProvider.dart';
 import 'package:irecommend/screens/registration/UI/registrationPage.dart';
@@ -116,11 +118,11 @@ class _LoginPageState extends State<LoginPage> {
                                 borderSide: BorderSide(color: Style.grey),
                                 borderRadius: BorderRadius.circular(20.0),
                               ),
-                              border: new OutlineInputBorder(
+                              border: OutlineInputBorder(
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(20),
                                 ),
-                                borderSide: new BorderSide(color: Style.grey),
+                                borderSide: BorderSide(color: Style.grey),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: const BorderRadius.all(
@@ -199,6 +201,11 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                                 onPressed: () async {
+
+                             await     FirebaseAuth.instance.signInAnonymously();
+                          log(  FirebaseAuth.instance.currentUser!.uid.toString())   ;   
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>Routing()));
+                          
                                   String? email = await readEmail();
                                   String? password = await readPassword();
 log(email!+password!);
