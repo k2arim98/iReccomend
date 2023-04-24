@@ -1,32 +1,23 @@
-import 'dart:developer';
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:irecommend/data/data.dart';
+import 'package:irecommend/screens/home/Models/model_items.dart';
 import 'package:irecommend/screens/home/UI/details.dart';
-import 'package:irecommend/screens/home/provider/homeProvider.dart';
-import 'package:provider/provider.dart';
 
-import 'model_items.dart';
-
-class Model extends StatefulWidget {
-  final double padding;
-  final double spacing;
-
-  const Model({
-    Key? key,
-    required this.padding,
-    required this.spacing,
-  }) : super(key: key);
+class Another2 extends StatefulWidget {
+  const Another2({Key? key}) : super(key: key);
 
   @override
-  State<Model> createState() => _ModelState();
+  State<Another2> createState() => _AnotherState();
 }
 
-class _ModelState extends State<Model> {
-  late final ScrollController _scrollController;
+class _AnotherState extends State<Another2> {
+  final ScrollController _scrollController = ScrollController();
   late final double _indexFactor;
-  HomeProvider? providerTrue;
-  HomeProvider? providerFalse;
+
   static const _imageWidth = 180.0;
   double _imageOffset = 0.0;
 
@@ -34,50 +25,37 @@ class _ModelState extends State<Model> {
   void initState() {
     final deviceWidth =
         (window.physicalSize.shortestSide / window.devicePixelRatio);
-    _indexFactor = (widget.spacing + _imageWidth) / deviceWidth;
-    _imageOffset = -widget.padding / deviceWidth;
+    _indexFactor = (8 + _imageWidth) / deviceWidth;
+    _imageOffset = -8 / deviceWidth;
 
-    _scrollController = ScrollController();
     _scrollController.addListener(() {
       setState(() {
-        _imageOffset =
-            ((_scrollController.offset - widget.padding) / deviceWidth);
+        _imageOffset = ((_scrollController.offset - 8) / deviceWidth);
       });
     });
     super.initState();
   }
 
   @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    providerTrue = Provider.of<HomeProvider>(context, listen: true);
-    providerFalse = Provider.of<HomeProvider>(context);
-
-    return Column(
-      children: [
-        SizedBox(
-          height: 240,
+    return Scaffold(
+      body: SafeArea(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           child: ListView.separated(
             physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.symmetric(horizontal: widget.padding),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             controller: _scrollController,
-            scrollDirection: Axis.horizontal,
-            separatorBuilder: (_, __) => SizedBox(width: widget.spacing),
-            itemCount: providerFalse!.categoryL.length,
+            separatorBuilder: (_, __) => const SizedBox(width: 8),
+            itemCount: data.length,
             itemBuilder: (_, index) => GestureDetector(
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => Details(
-                          index: index,
-                          hero:
-                              "${providerFalse!.categoryL[index]["city"]}$index")),
+                          index: index, hero: "${data[index]["city"]}$index")),
                 );
               },
               child: SizedBox(
@@ -98,11 +76,10 @@ class _ModelState extends State<Model> {
                               horizontal: 10, vertical: 10),
                           child: ModelItems(
                               index: index,
-                              imageWidth: _imageWidth,
+                              imageWidth: MediaQuery.of(context).size.width,
                               imageOffset: _imageOffset,
                               indexFactor: _indexFactor,
-                              hero:
-                                  "${providerFalse!.categoryL[index]["city"]}$index"),
+                              hero: "${data[index]["city"]}$index"),
                         ),
                       ),
                       Expanded(
@@ -117,7 +94,7 @@ class _ModelState extends State<Model> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                providerFalse!.categoryL[index]["city"],
+                                data[index]["city"],
                                 style: const TextStyle(
                                   color: kSecondaryColor,
                                   fontSize: 22,
@@ -128,13 +105,13 @@ class _ModelState extends State<Model> {
                               Row(
                                 children: [
                                   Icon(
-                                    Icons.location_city_rounded,
+                                    Icons.ac_unit,
                                     color: kSecondaryColor.withOpacity(0.5),
                                     size: 18,
                                   ),
                                   const SizedBox(width: 2),
                                   Text(
-                                    providerFalse!.categoryL[index]["city"],
+                                    data[index]["city"],
                                     style: TextStyle(
                                       color: kSecondaryColor.withOpacity(0.5),
                                       fontSize: 16,
@@ -154,7 +131,7 @@ class _ModelState extends State<Model> {
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 }

@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:irecommend/data/data.dart';
 
-
 class ModelItems extends StatelessWidget {
   final int index;
   final double imageWidth;
@@ -48,7 +47,7 @@ class ModelItems extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Icon(
-                   Icons.ac_unit,
+                      Icons.ac_unit,
                       color: Color(0xFFFFD600),
                       size: 20,
                     ),
@@ -72,7 +71,7 @@ class ModelItems extends StatelessWidget {
       ),
     );
   }
-
+/*
   Widget favoriteIcon() {
     return Align(
       alignment: Alignment.topRight,
@@ -85,7 +84,7 @@ class ModelItems extends StatelessWidget {
             height: 48,
             color: Colors.white,
             child: const Icon(
-             Icons.ac_unit,
+              Icons.,
               color: Colors.black87,
             ),
           ),
@@ -105,7 +104,7 @@ class ModelItems extends StatelessWidget {
         ),
       ),
     );
-  }
+  }*/
 
   Widget bottomText() {
     return Align(
@@ -124,7 +123,7 @@ class ModelItems extends StatelessWidget {
                 child: Row(
                   children: [
                     const Icon(
-              Icons.ac_unit,
+                      Icons.ac_unit,
                       color: kPrimaryColor,
                     ),
                     const SizedBox(width: 4),
@@ -163,7 +162,7 @@ class ModelItems extends StatelessWidget {
           children: [
             image(),
             // rating(),
-            favoriteIcon(),
+            //favoriteIcon(),
             // bottomText(),
           ],
         ),

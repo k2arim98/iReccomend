@@ -27,21 +27,25 @@ class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-       providerTrue = Provider.of<HomeProvider>(context, listen: true);
+    providerTrue = Provider.of<HomeProvider>(context, listen: true);
     providerFalse = Provider.of<HomeProvider>(context);
     return Scaffold(
       key: _scaffoldKey,
-    endDrawer: Drawer(
-
-      child: Column(
-        children: [
-          DrawerHeader(child: TextButton(onPressed: () {
-            AuthService().signOut(context);
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>LoginPage()));
-          },child: Text("sign out"),))
-        ],
+      endDrawer: Drawer(
+        child: Column(
+          children: [
+            DrawerHeader(
+                child: TextButton(
+              onPressed: () {
+                AuthService().signOut(context);
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (ctx) => LoginPage()));
+              },
+              child: Text("sign out"),
+            ))
+          ],
+        ),
       ),
-    ),
       body: SafeArea(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -125,7 +129,7 @@ class _HomeState extends State<Home> {
           GestureDetector(
             onTap: () {
               log("button pressed");
-            _scaffoldKey.currentState.openEndDrawer();
+              _scaffoldKey.currentState.openEndDrawer();
             },
             child: const CircleAvatar(
               backgroundColor: kAvatarColor,
@@ -152,7 +156,7 @@ class _HomeState extends State<Home> {
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Icon(
-             Icons.ac_unit,
+              Icons.search,
               color: kSecondaryColor.withOpacity(0.6),
               size: 20,
             ),
@@ -164,11 +168,6 @@ class _HomeState extends State<Home> {
               ),
             ),
             const Spacer(),
-            Icon(
-              Icons.ac_unit,
-              color: kSecondaryColor.withOpacity(0.6),
-              size: 20,
-            ),
           ],
         ),
       ),
@@ -273,22 +272,27 @@ class _HomeState extends State<Home> {
                   ...List.generate(
                       data_2.length,
                       (i) => GestureDetector(
-                        onTap: ()async{
-                          log(data_2[i]["name"]);
-                         await providerFalse.getCategoryData(data_2[i]["name"]);
-                          log(providerFalse.categoryL.length.toString());
-                          setState(() {
-                            colorIndex=i;
-                          });
-                        },
-                        child: Container(
+                            onTap: () async {
+                              log(data_2[i]["name"]);
+                              await providerFalse
+                                  .getCategoryData(data_2[i]["name"]);
+                              log(providerFalse.categoryL.length.toString());
+                              setState(() {
+                                colorIndex = i;
+                              });
+                            },
+                            child: Container(
                               // width: 80,
                               // color: Colors.green,
                               margin: const EdgeInsets.only(left: 35),
                               child: Column(
                                 children: [
                                   CircleAvatar(
-                                    backgroundColor: data_2[i]["index"]==colorIndex?const Color.fromARGB(255, 77, 118, 243): const Color(0xffeaeaea),
+                                    backgroundColor:
+                                        data_2[i]["index"] == colorIndex
+                                            ? const Color.fromARGB(
+                                                255, 77, 118, 243)
+                                            : const Color(0xffeaeaea),
                                     radius: 26,
                                     backgroundImage:
                                         AssetImage(data_2[i]["image"]),
@@ -305,7 +309,7 @@ class _HomeState extends State<Home> {
                                 ],
                               ),
                             ),
-                      ))
+                          ))
                 ],
               ),
             ),

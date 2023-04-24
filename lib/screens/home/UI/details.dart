@@ -1,8 +1,11 @@
+// ignore_for_file: unnecessary_const
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:irecommend/data/data.dart';
-
+import 'package:irecommend/screens/home/UI/CommentSection.dart';
 
 class Details extends StatefulWidget {
   final int index;
@@ -171,7 +174,7 @@ class DdetailsState extends State<Details> {
                     backgroundColor: Color(0xffeaeaea),
                     radius: 26,
                     child: Icon(
-                      Icons.ac_unit,
+                      Icons.pin_drop,
                       color: kSecondaryColor,
                     ),
                   ),
@@ -190,7 +193,7 @@ class DdetailsState extends State<Details> {
                     backgroundColor: Color(0xffeaeaea),
                     radius: 26,
                     child: Icon(
-                    Icons.ac_unit,
+                      Icons.hourglass_bottom_rounded,
                       color: kSecondaryColor,
                     ),
                   ),
@@ -212,13 +215,21 @@ class DdetailsState extends State<Details> {
                   ),
                   trailing: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
-                      Text(
-                        "showDetails ",
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 12,
-                          fontFamily: 'Montserrat',
+                    children: [
+                      TextButton(
+                        onPressed: () async {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => TestMe()),
+                          );
+                        },
+                        child: const Text(
+                          "See Visitors Comments",
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 12,
+                            fontFamily: 'Montserrat',
+                          ),
                         ),
                       ),
                     ],
@@ -262,7 +273,7 @@ class DdetailsState extends State<Details> {
                     ),
                     SizedBox(width: 5),
                     Icon(
-                     Icons.ac_unit,
+                      Icons.check,
                       color: Colors.white,
                     )
                   ],
@@ -289,7 +300,7 @@ class DdetailsState extends State<Details> {
                   height: 48,
                   color: Colors.white,
                   child: const Icon(
-               Icons.ac_unit,
+                    Icons.arrow_back_ios,
                     color: Colors.black87,
                   ),
                 ),
@@ -309,7 +320,7 @@ class DdetailsState extends State<Details> {
                 height: 48,
                 color: Colors.white,
                 child: const Icon(
-                 Icons.ac_unit,
+                  Icons.favorite,
                   color: Colors.black87,
                 ),
               ),
@@ -327,7 +338,7 @@ class DdetailsState extends State<Details> {
                 height: 48,
                 color: Colors.white,
                 child: const Icon(
-             Icons.ac_unit,
+                  Icons.check_box,
                   color: Colors.black87,
                 ),
               ),
