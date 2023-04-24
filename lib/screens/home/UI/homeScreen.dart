@@ -7,6 +7,7 @@ import 'package:irecommend/auth/auth.dart';
 
 import 'package:irecommend/data/data.dart';
 import 'package:irecommend/main.dart';
+import 'package:irecommend/providers/appState.dart';
 import 'package:irecommend/screens/home/Models/model.dart';
 import 'package:irecommend/screens/home/provider/homeProvider.dart';
 import 'package:irecommend/screens/login/UI/loginPage.dart';
@@ -22,6 +23,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   HomeProvider providerTrue;
   HomeProvider providerFalse;
+  AppState appState;
   static const _padding = 24.0;
   static const _spacing = 10.0;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -29,6 +31,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
        providerTrue = Provider.of<HomeProvider>(context, listen: true);
     providerFalse = Provider.of<HomeProvider>(context);
+     appState= Provider.of<AppState>(context);
     return Scaffold(
       key: _scaffoldKey,
     endDrawer: Drawer(
@@ -102,7 +105,7 @@ class _HomeState extends State<Home> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Where do',
+                 'Where do',
                   style: TextStyle(
                     color: kSecondaryColor.withOpacity(0.6),
                     fontSize: 22,

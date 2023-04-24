@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:irecommend/auth/auth.dart';
 import 'package:irecommend/routings/routing.dart';
 import 'package:irecommend/screens/home/UI/homeScreen.dart';
 import 'package:irecommend/screens/login/provider/loginProvider.dart';
@@ -17,7 +18,7 @@ import 'package:irecommend/utility/sharePreference.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -202,7 +203,8 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 onPressed: () async {
 
-                             await     FirebaseAuth.instance.signInAnonymously();
+                             await     AuthService().signInWithEmailAndPassword(providerTrue!.login_email.text, providerTrue!
+                                            .login_password.text, context);
                           log(  FirebaseAuth.instance.currentUser!.uid.toString())   ;   
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>Routing()));
                           

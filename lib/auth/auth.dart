@@ -25,10 +25,25 @@ class AuthService {
       String email, String password, BuildContext context) async {
     final res = await _firebaseAuth
         .signInWithEmailAndPassword(email: email, password: password)
-        .then((result) {})
-        .onError((error, stackTrace) {});
+        .then((result) {
+          log("this is"+result.toString());
+        })
+        .onError((error, stackTrace) {
+          log(error.toString());
+        });
   }
 
+  Future<String> creatUserwithEmail(
+      String email, String password, BuildContext context) async {
+    final res = await _firebaseAuth
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .then((result) {
+          log("this is"+result.toString());
+        })
+        .onError((error, stackTrace) {
+          log(error.toString());
+        });
+  }
 
 
   // Sign Out

@@ -43,7 +43,7 @@ void main()async {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(useMaterial3: true),
+     
         home: MyWidget(),
       ),
     ),
@@ -51,7 +51,7 @@ void main()async {
 }
 
 class MyWidget extends StatelessWidget {
-
+AppState appState;
 // Get the firebase user
 User firebaseUser = FirebaseAuth.instance.currentUser;
 // Define a widget
@@ -60,6 +60,7 @@ User firebaseUser = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
+    appState= Provider.of<AppState>(context);
     return FutureBuilder<User>(
             future:Future.value(FirebaseAuth.instance.currentUser) ,
             builder: (BuildContext context, AsyncSnapshot<User> snapshot){

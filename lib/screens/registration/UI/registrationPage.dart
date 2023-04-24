@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:irecommend/auth/auth.dart';
 import 'package:irecommend/screens/login/UI/loginPage.dart';
 
 import 'package:irecommend/screens/registration/provider/registrationProvider.dart';
@@ -13,7 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({super.key});
+  const RegistrationPage({Key? key, }) : super(key: key);
 
   @override
   State<RegistrationPage> createState() => _RegistrationPageState();
@@ -113,13 +114,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                           content: Text("Password Changed !!"),
                                         ),
                                       );
-                                      save(
+                                      AuthService().creatUserwithEmail(
                                           providerTrue!.registration_email.text,
                                           providerTrue!
-                                              .registration_password.text,
-                                          providerTrue!
-                                              .registration_re_password.text,
-                                          providerTrue!.phone_num.text);
+                                              .registration_password.text,context);
+                                        
                                       Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(

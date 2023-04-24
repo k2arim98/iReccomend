@@ -24,6 +24,7 @@ class Model extends StatefulWidget {
 
 class _ModelState extends State<Model> {
   late final ScrollController _scrollController;
+  
   late final double _indexFactor;
   HomeProvider? providerTrue;
   HomeProvider? providerFalse;
@@ -62,7 +63,7 @@ class _ModelState extends State<Model> {
       children: [
         SizedBox(
           height: 240,
-          child: ListView.separated(
+          child:providerFalse!.loading? CircularProgressIndicator(): ListView.separated(
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: widget.padding),
             controller: _scrollController,
@@ -75,7 +76,7 @@ class _ModelState extends State<Model> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => Details(
-                          index: index, hero: "${providerFalse!.categoryL[index]["city"]}$index")),
+                          index: index, hero: "${providerFalse!.categoryL[index].data()["city"]}$index")),
                 );
               },
               child: SizedBox(
@@ -99,7 +100,7 @@ class _ModelState extends State<Model> {
                               imageWidth: _imageWidth,
                               imageOffset: _imageOffset,
                               indexFactor: _indexFactor,
-                              hero: "${providerFalse!.categoryL[index]["city"]}$index"),
+                              hero: "${providerFalse!.categoryL[index].data()["city"]}$index"),
                         ),
                       ),
                       Expanded( 
@@ -114,7 +115,7 @@ class _ModelState extends State<Model> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                providerFalse!.categoryL[index]["city"],
+                                providerFalse!.categoryL[index].data()["city"],
                                 style: const TextStyle(
                                   color: kSecondaryColor,
                                   fontSize: 22,
@@ -131,7 +132,7 @@ class _ModelState extends State<Model> {
                                   ),
                                   const SizedBox(width: 2),
                                   Text(
-                                    providerFalse!.categoryL[index]["city"],
+                                    providerFalse!.categoryL[index].data()["city"],
                                     style: TextStyle(
                                       color: kSecondaryColor.withOpacity(0.5),
                                       fontSize: 16,

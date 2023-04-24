@@ -54,6 +54,41 @@ List data = [
     'image': 'assets/images/london.jpg',
      "type":'city'
   },
+    {
+    "city": 'London',
+    "country": 'England',
+    "rating": '4.5',
+    'image': 'assets/images/london.jpg',
+     "type":'city'
+  },
+    {
+    "city": 'London',
+    "country": 'England',
+    "rating": '4.5',
+    'image': 'assets/images/london.jpg',
+     "type":'city'
+  },
+    {
+    "city": 'London',
+    "country": 'England',
+    "rating": '4.5',
+    'image': 'assets/images/london.jpg',
+     "type":'city'
+  },
+    {
+    "city": 'London',
+    "country": 'England',
+    "rating": '4.5',
+    'image': 'assets/images/london.jpg',
+     "type":'city'
+  },
+    {
+    "city": 'London',
+    "country": 'England',
+    "rating": '4.5',
+    'image': 'assets/images/london.jpg',
+     "type":'city'
+  },
 ];
 List data_2 = [
   {"name": 'Flaye', 'image': 'assets/images/flaye.png','index':0},
