@@ -1,7 +1,12 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
+
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
+import 'package:irecommend/screens/home/provider/homeProvider.dart';
+import 'package:provider/provider.dart';
 
 class TestMe extends StatefulWidget {
   @override
@@ -9,6 +14,7 @@ class TestMe extends StatefulWidget {
 }
 
 class _TestMeState extends State<TestMe> {
+ late  HomeProvider providerFalse;
   final formKey = GlobalKey<FormState>();
   final TextEditingController commentController = TextEditingController();
   List filedata = [
@@ -55,15 +61,15 @@ class _TestMeState extends State<TestMe> {
                   child: CircleAvatar(
                       radius: 50,
                       backgroundImage: CommentBox.commentImageParser(
-                          imageURLorPath: data[i]['pic'])),
+                          imageURLorPath: data[i].data()['pic'])),
                 ),
               ),
               title: Text(
-                data[i]['name'],
+               data[i].data()['userName'],
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              subtitle: Text(data[i]['message']),
-              trailing: Text(data[i]['date'], style: TextStyle(fontSize: 10)),
+              subtitle: Text(data[i].data()['content']),
+              trailing: Text("s", style: TextStyle(fontSize: 10)),
             ),
           )
       ],
@@ -72,6 +78,7 @@ class _TestMeState extends State<TestMe> {
 
   @override
   Widget build(BuildContext context) {
+     providerFalse = Provider.of<HomeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -86,13 +93,18 @@ class _TestMeState extends State<TestMe> {
       body: Container(
         child: CommentBox(
           userImage: CommentBox.commentImageParser(imageURLorPath: ""),
-          child: commentChild(filedata),
+          child: commentChild(providerFalse.commentsL),
           labelText: 'Write a comment...',
           errorText: 'Comment cannot be blank',
           withBorder: false,
           sendButtonMethod: () {
             if (formKey.currentState!.validate()) {
               print(commentController.text);
+              FirebaseFirestore.instance.collection("data").doc(providerFalse.detailPage["uid"]).collection("comments").add({
+                "userName":"anis",
+                "content": commentController.text,
+                "date":Timestamp.now()
+              });
               setState(() {
                 var value = {
                   'name': 'New User',

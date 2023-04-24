@@ -158,7 +158,7 @@ class ModelItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("this is img"+img);
+
     return SizedBox(
       width: imageWidth,
       child: ClipRRect(

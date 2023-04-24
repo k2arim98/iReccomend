@@ -298,7 +298,7 @@ class _HomeState extends State<Home> {
                                             : const Color(0xffeaeaea),
                                     radius: 26,
                                     backgroundImage:
-                                        AssetImage("assets/images/HotelAz.jpg"),
+                                        AssetImage(data_2[i]["image"]),
                                   ),
                                   const SizedBox(height: 15),
                                   Text(

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:irecommend/data/data.dart';
 import 'package:irecommend/screens/home/UI/CommentSection.dart';
+import 'package:irecommend/screens/home/provider/homeProvider.dart';
+import 'package:provider/provider.dart';
 
 class Details extends StatefulWidget {
   final int index;
@@ -18,6 +20,7 @@ class Details extends StatefulWidget {
 }
 
 class DdetailsState extends State<Details> {
+ late HomeProvider providerFalse;
   final _controller = ScrollController();
   ScrollPhysics _physics = const ClampingScrollPhysics();
   bool appBarVAR = false;
@@ -52,6 +55,7 @@ class DdetailsState extends State<Details> {
   Widget build(BuildContext context) {
     double displayWidth = MediaQuery.of(context).size.width;
     double displayHeight = MediaQuery.of(context).size.height;
+    providerFalse = Provider.of<HomeProvider>(context);
     return Scaffold(
       body: Stack(
         alignment: Alignment.bottomCenter,
@@ -79,7 +83,7 @@ class DdetailsState extends State<Details> {
                               bottomLeft: Radius.circular(40),
                               bottomRight: Radius.circular(40)),
                           image: DecorationImage(
-                              image: AssetImage(data[widget.index]["image"]),
+                              image: AssetImage(providerFalse.detailPage["image"]),
                               fit: BoxFit.cover)),
                       child: Stack(
                         fit: StackFit.expand,
@@ -117,7 +121,7 @@ class DdetailsState extends State<Details> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            data[widget.index]["city"],
+                          providerFalse.detailPage["name"],
                             style: const TextStyle(
                               color: kSecondaryColor,
                               fontSize: 25,
@@ -127,7 +131,7 @@ class DdetailsState extends State<Details> {
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            data[widget.index]["country"],
+                           providerFalse.detailPage["category"],
                             style: const TextStyle(
                               color: kSecondaryColor,
                               fontSize: 15,

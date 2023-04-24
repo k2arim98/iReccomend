@@ -72,6 +72,7 @@ class _ModelState extends State<Model> {
             itemCount: providerFalse!.categoryL.length,
             itemBuilder: (_, index) => GestureDetector(
               onTap: () {
+                providerFalse!.setDetailPage(providerFalse!.categoryL[index].data());
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -116,7 +117,7 @@ class _ModelState extends State<Model> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                providerFalse!.categoryL[index].data()["city"],
+                                providerFalse!.categoryL[index].data()["name"],
                                 style: const TextStyle(
                                   color: kSecondaryColor,
                                   fontSize: 22,

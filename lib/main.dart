@@ -60,6 +60,7 @@ User firebaseUser = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
+    imageCache.clear();
     appState= Provider.of<AppState>(context);
     return FutureBuilder<User>(
             future:Future.value(FirebaseAuth.instance.currentUser) ,

@@ -2,6 +2,39 @@
 import 'package:flutter/material.dart';
 import 'package:irecommend/utility/constant.dart';
 
+
+
+Widget regtextformfield(
+    String hintText, Icon prefixIcon, TextEditingController regEmail) {
+  return TextFormField(
+    controller: regEmail,
+    
+    style: TextStyle(color: Style.black),
+    decoration: InputDecoration(
+      hintText: hintText,
+      hintStyle: TextStyle(color: Style.grey),
+      prefixIcon: prefixIcon,
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Style.grey),
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      border: OutlineInputBorder(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(20),
+        ),
+        borderSide: BorderSide(color: Style.grey),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(20),
+        ),
+        borderSide: BorderSide(width: 1, color: Style.grey),
+      ),
+    ),
+  );
+}
+
+
 Widget reg_email_textformfield(
     String hintText, Icon prefixIcon, TextEditingController regEmail) {
   return TextFormField(

@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:irecommend/auth/auth.dart';
@@ -14,7 +13,9 @@ import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({Key? key, }) : super(key: key);
+  const RegistrationPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<RegistrationPage> createState() => _RegistrationPageState();
@@ -71,6 +72,22 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 color: Style.black),
                           ),
                           hSize(),
+                          regtextformfield(
+                              'nom',
+                              Icon(
+                                Icons.email,
+                                color: Style.grey,
+                              ),
+                              providerTrue!.registration_nom),
+                          hSize(),
+                          regtextformfield(
+                              'prenom',
+                              Icon(
+                                Icons.email,
+                                color: Style.grey,
+                              ),
+                              providerTrue!.registration_prenom),
+                          hSize(),
                           reg_email_textformfield(
                               'Enter Email id',
                               Icon(
@@ -117,8 +134,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                       AuthService().creatUserwithEmail(
                                           providerTrue!.registration_email.text,
                                           providerTrue!
-                                              .registration_password.text,context);
-                                        
+                                              .registration_password.text,
+                                          providerTrue!.registration_nom.text,
+                                          providerTrue!
+                                              .registration_prenom.text,
+                                          context);
+
                                       Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(

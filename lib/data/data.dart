@@ -50,50 +50,48 @@ List data = [
     "type": 'city'
   },
     {
-    "city": 'London',
+    "city": 'HotelAz',
     "country": 'England',
     "rating": '4.5',
-    'image': 'assets/images/london.jpg',
+    'image': 'assets/images/HotelAz.jpg',
      "type":'city'
   },
     {
-    "city": 'London',
+    "city": 'HotelAz',
     "country": 'England',
     "rating": '4.5',
-    'image': 'assets/images/london.jpg',
+    'image': 'assets/images/HotelAz.jpg',
      "type":'city'
   },
     {
-    "city": 'London',
+    "city": 'HotelAz',
     "country": 'England',
     "rating": '4.5',
-    'image': 'assets/images/london.jpg',
+    'image': 'assets/images/HotelAz.jpg',
      "type":'city'
   },
     {
-    "city": 'London',
+    "city": 'HotelAz',
     "country": 'England',
     "rating": '4.5',
-    'image': 'assets/images/london.jpg',
+    'image': 'assets/images/HotelAz.jpg',
      "type":'city'
   },
     {
-    "city": 'London',
+    "city": 'HotelAz',
     "country": 'England',
     "rating": '4.5',
-    'image': 'assets/images/london.jpg',
+    'image': 'assets/images/HotelAz.jpg',
      "type":'city'
   },
 ];
 List data_2 = [
-  {"name": 'Flaye', 'image': 'assets/images/flaye.png', 'index': 0},
-  {"name": 'Beach', 'image': 'assets/images/beach.png', 'index': 1},
+  {"name": 'food', 'image': 'assets/images/flaye.png', 'index': 0},
+  {"name": 'hotel', 'image': 'assets/images/beach.png', 'index': 1},
   {"name": 'Park', 'image': 'assets/images/park.png', 'index': 2},
-  {"name": 'city', 'image': 'assets/images/camp.png', 'index': 3},
-  {"name": 'buildings', 'image': 'assets/images/flaye.png', 'index': 4},
-  {"name": 'Beach', 'image': 'assets/images/beach.png', 'index': 5},
-  {"name": 'Park', 'image': 'assets/images/park.png', 'index': 6},
-  {"name": 'Camp', 'image': 'assets/images/camp.png', 'index': 7},
+  {"name": 'beach', 'image': 'assets/images/camp.png', 'index': 3},
+  {"name": 'shops', 'image': 'assets/images/flaye.png', 'index': 4},
+  {"name": 'forest', 'image': 'assets/images/beach.png', 'index': 5},
 ];
 final categoryList = ['Populare', 'Recommended', 'Most Viewd', 'Most Liked'];
 

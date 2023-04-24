@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 
 class RegistrationProvider extends ChangeNotifier {
   final formKey = GlobalKey<FormState>();
+    TextEditingController registration_nom = TextEditingController();
+  TextEditingController registration_prenom= TextEditingController();
   TextEditingController registration_email = TextEditingController();
   TextEditingController registration_password = TextEditingController();
   TextEditingController registration_re_password = TextEditingController();
