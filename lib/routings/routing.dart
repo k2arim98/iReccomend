@@ -1,12 +1,10 @@
 import 'dart:developer';
 
-
 import 'package:flutter/material.dart';
 import 'package:irecommend/data/data.dart';
-import 'package:irecommend/screens/home/UI/another.dart';
+import 'package:irecommend/screens/home/UI/FavoriteScreen.dart';
+import 'package:irecommend/screens/home/UI/SavedItemsScreen.dart';
 import 'package:irecommend/screens/home/UI/homeScreen.dart';
-
-
 
 class Routing extends StatefulWidget {
   const Routing({Key? key}) : super(key: key);
@@ -19,8 +17,7 @@ class _RoutingState extends State<Routing> {
   List routing = [
     const Home(),
     const Another(),
-    const Another(),
-    const Another(),
+    const Another2(),
   ];
   @override
   Widget build(BuildContext context) {

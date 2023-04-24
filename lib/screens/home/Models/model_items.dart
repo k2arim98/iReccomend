@@ -1,29 +1,33 @@
+// @dart=2.9
+import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:irecommend/data/data.dart';
-
 
 class ModelItems extends StatelessWidget {
   final int index;
   final double imageWidth;
   final double imageOffset;
   final double indexFactor;
+  final String img;
   final String hero;
 
   const ModelItems(
-      {Key? key,
-      required this.index,
-      required this.imageWidth,
-      required this.imageOffset,
-      required this.indexFactor,
-      required this.hero})
-      : super(key: key);
+      {
+       this.index,
+       this.img,
+       this.imageWidth,
+       this.imageOffset,
+       this.indexFactor,
+       this.hero})
+  ;
 
   Widget image() {
+    
     return Hero(
       tag: hero,
       child: Image.asset(
-        data[index]["image"],
+       img,
         fit: BoxFit.cover,
         alignment: Alignment(-imageOffset + indexFactor * index, 0),
       ),
@@ -48,7 +52,7 @@ class ModelItems extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Icon(
-                   Icons.ac_unit,
+                      Icons.ac_unit,
                       color: Color(0xFFFFD600),
                       size: 20,
                     ),
@@ -72,7 +76,7 @@ class ModelItems extends StatelessWidget {
       ),
     );
   }
-
+/*
   Widget favoriteIcon() {
     return Align(
       alignment: Alignment.topRight,
@@ -85,7 +89,7 @@ class ModelItems extends StatelessWidget {
             height: 48,
             color: Colors.white,
             child: const Icon(
-             Icons.ac_unit,
+              Icons.,
               color: Colors.black87,
             ),
           ),
@@ -105,7 +109,7 @@ class ModelItems extends StatelessWidget {
         ),
       ),
     );
-  }
+  }*/
 
   Widget bottomText() {
     return Align(
@@ -124,7 +128,7 @@ class ModelItems extends StatelessWidget {
                 child: Row(
                   children: [
                     const Icon(
-              Icons.ac_unit,
+                      Icons.ac_unit,
                       color: kPrimaryColor,
                     ),
                     const SizedBox(width: 4),
@@ -154,6 +158,7 @@ class ModelItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("this is img"+img);
     return SizedBox(
       width: imageWidth,
       child: ClipRRect(
@@ -163,7 +168,7 @@ class ModelItems extends StatelessWidget {
           children: [
             image(),
             // rating(),
-            favoriteIcon(),
+            //favoriteIcon(),
             // bottomText(),
           ],
         ),
