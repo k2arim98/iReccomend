@@ -21,34 +21,7 @@ List bottomBar = [
 ];
 
 List data = [
-  {
-    "city": 'Oran',
-    "country": 'Algerie',
-    "rating": '4.6',
-    'image': 'assets/images/HotelPacha.jpg',
-    "type": 'Beach'
-  },
-  {
-    "city": 'Oran',
-    "country": 'Algerie',
-    "rating": '4.8',
-    'image': 'assets/images/HotelRoyal.jpg',
-    "type": 'Beach'
-  },
-  {
-    "city": 'Oran',
-    "country": 'Algerie',
-    "rating": '4.4',
-    'image': 'assets/images/HotelAz.jpg',
-    "type": 'buildings'
-  },
-  {
-    "city": 'Oran',
-    "country": 'Algerie',
-    "rating": '4.5',
-    'image': 'assets/images/Saiko-Sushi-Oran.png',
-    "type": 'city'
-  },
+ 
     {
     "city": 'HotelAz',
     "country": 'England',
@@ -77,13 +50,7 @@ List data = [
     'image': 'assets/images/HotelAz.jpg',
      "type":'city'
   },
-    {
-    "city": 'HotelAz',
-    "country": 'England',
-    "rating": '4.5',
-    'image': 'assets/images/HotelAz.jpg',
-     "type":'city'
-  },
+
 ];
 List data_2 = [
   {"name": 'food', 'image': 'assets/images/flaye.png', 'index': 0},
@@ -93,7 +60,7 @@ List data_2 = [
   {"name": 'shops', 'image': 'assets/images/flaye.png', 'index': 4},
   {"name": 'forest', 'image': 'assets/images/beach.png', 'index': 5},
 ];
-final categoryList = ['Populare', 'Recommended', 'Most Viewd', 'Most Liked'];
+final categoryList = ["All",'Recommended', 'Most Viewd', 'Most Liked'];
 
 // Colors
 const kAvatarColor = Color(0xffffdbc9);

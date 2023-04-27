@@ -1,7 +1,9 @@
 // ignore_for_file: unnecessary_const
 
+import 'dart:developer';
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:irecommend/data/data.dart';
@@ -90,7 +92,7 @@ class DdetailsState extends State<Details> {
                         children: [
                           AnimatedCrossFade(
                             firstChild: Container(),
-                            secondChild: appBar(),
+                            secondChild: appBar(providerFalse),
                             crossFadeState: appBarVAR
                                 ? CrossFadeState.showSecond
                                 : CrossFadeState.showFirst,
@@ -288,7 +290,7 @@ class DdetailsState extends State<Details> {
     );
   }
 
-  Widget appBar() {
+  Widget appBar(HomeProvider provid) {
     return Row(
       children: [
         Align(
@@ -317,15 +319,24 @@ class DdetailsState extends State<Details> {
           alignment: Alignment.topRight,
           child: Padding(
             padding: const EdgeInsets.all(12),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(32),
-              child: Container(
-                width: 48,
-                height: 48,
-                color: Colors.white,
-                child: const Icon(
-                  Icons.favorite,
-                  color: Colors.black87,
+            child: GestureDetector(
+              onTap: () {
+                log("favorite buttton clicked");
+                FirebaseFirestore.instance.collection("users").doc(provid.userData["uid"]).collection("favorite").add(provid.detailPage);
+                FirebaseFirestore.instance.collection("data").doc(provid.detailPage["uid"]).update({
+                  "liked":provid.detailPage["liked"]+1
+                });
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(32),
+                child: Container(
+                  width: 48,
+                  height: 48,
+                  color: Colors.white,
+                  child: const Icon(
+                    Icons.favorite,
+                    color: Colors.black87,
+                  ),
                 ),
               ),
             ),

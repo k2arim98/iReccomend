@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:irecommend/data/data.dart';
 import 'package:irecommend/screens/home/Models/model_items.dart';
 import 'package:irecommend/screens/home/UI/details.dart';
+import 'package:irecommend/screens/home/provider/homeProvider.dart';
+import 'package:provider/provider.dart';
 
 class Another extends StatefulWidget {
   const Another({Key? key}) : super(key: key);
@@ -16,6 +18,7 @@ class Another extends StatefulWidget {
 
 class _AnotherState extends State<Another> {
   final ScrollController _scrollController = ScrollController();
+ late HomeProvider homeProvider;
   late final double _indexFactor;
 
   static const _imageWidth = 180.0;
@@ -38,6 +41,7 @@ class _AnotherState extends State<Another> {
 
   @override
   Widget build(BuildContext context) {
+homeProvider = Provider.of<HomeProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: SizedBox(
@@ -48,14 +52,15 @@ class _AnotherState extends State<Another> {
             padding: const EdgeInsets.symmetric(horizontal: 8),
             controller: _scrollController,
             separatorBuilder: (_, __) => const SizedBox(width: 8),
-            itemCount: data.length,
+            itemCount: homeProvider.favoriteL.length,
             itemBuilder: (_, index) => GestureDetector(
               onTap: () {
+                homeProvider.setDetailPage(homeProvider.favoriteL[index].data());
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => Details(
-                          index: index, hero: "${data[index]["city"]}$index")),
+                          index: index, hero: "${homeProvider.favoriteL[index].data()["city"]}$index")),
                 );
               },
               child: SizedBox(
@@ -76,10 +81,11 @@ class _AnotherState extends State<Another> {
                               horizontal: 10, vertical: 10),
                           child: ModelItems(
                               index: index,
+                               img: homeProvider.favoriteL[index].data()["image"],
                               imageWidth: MediaQuery.of(context).size.width,
                               imageOffset: _imageOffset,
                               indexFactor: _indexFactor,
-                              hero: "${data[index]["city"]}$index"),
+                              hero: "${homeProvider.favoriteL[index].data()["city"]}$index"),
                         ),
                       ),
                       Expanded(
@@ -94,7 +100,7 @@ class _AnotherState extends State<Another> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                data[index]["city"],
+                                homeProvider.favoriteL[index].data()["name"],
                                 style: const TextStyle(
                                   color: kSecondaryColor,
                                   fontSize: 22,
@@ -111,7 +117,7 @@ class _AnotherState extends State<Another> {
                                   ),
                                   const SizedBox(width: 2),
                                   Text(
-                                    data[index]["city"],
+                                  homeProvider.favoriteL[index].data()["city"],
                                     style: TextStyle(
                                       color: kSecondaryColor.withOpacity(0.5),
                                       fontSize: 16,

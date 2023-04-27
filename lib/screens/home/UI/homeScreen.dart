@@ -21,6 +21,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String picked="All";
   HomeProvider providerTrue;
   HomeProvider providerFalse;
   AppState appState;
@@ -204,35 +205,32 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  children: [
-                    const Text(
-                      'All',
-                      style: TextStyle(
-                        color: kSecondaryColor,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Container(
-                      width: 10,
-                      height: 3,
-                      decoration: const BoxDecoration(
-                        // shape: BoxShape.circle,
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ],
-                ),
+              
                 const SizedBox(width: 10),
                 for (final category in categoryList)
                   Container(
                     margin: const EdgeInsets.only(right: 10),
-                    child: Text(
-                      category,
-                      style: TextStyle(
-                        color: kSecondaryColor.withOpacity(0.6),
-                        fontSize: 16,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          picked=category;
+                        });
+                        if(category=="Most Viewd"){
+                          providerFalse.getMostViewd();
+                        }else if(category=="All"){
+                          log("this i clicked");
+                          providerFalse.getData();
+                        }else if(category=="All"){
+                          log("this i clicked");
+                          providerFalse.getMostliked();
+                        }
+                      },
+                      child: Text(
+                        category,
+                        style: TextStyle(
+                          color:picked==category?Colors.blue: kSecondaryColor.withOpacity(0.6),
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   ),

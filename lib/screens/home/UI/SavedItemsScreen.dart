@@ -1,137 +1,99 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print
 
-import 'dart:ui';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
-import 'package:irecommend/data/data.dart';
-import 'package:irecommend/screens/home/Models/model_items.dart';
-import 'package:irecommend/screens/home/UI/details.dart';
+import 'package:irecommend/screens/home/provider/homeProvider.dart';
+import 'package:provider/provider.dart';
+import 'package:sentiment_dart/sentiment_dart.dart';
 
 class Another2 extends StatefulWidget {
-  const Another2({Key? key}) : super(key: key);
-
   @override
-  State<Another2> createState() => _AnotherState();
+  _Another2State createState() => _Another2State();
 }
 
-class _AnotherState extends State<Another2> {
-  final ScrollController _scrollController = ScrollController();
-  late final double _indexFactor;
+class _Another2State extends State<Another2> {
+  late HomeProvider providerFalse;
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController commentController = TextEditingController();
+  List filedata = [
+    {
+      'name': 'Chuks Okwuenu',
+      'message': 'Nice place',
+      'date': '2021-01-01 12:00:00'
+    },
+    {
+      'name': 'Biggi Man',
+      'message': 'Overrated',
+      'date': '2021-01-01 12:00:00'
+    },
+    {
+      'name': 'Tunde Martins',
+      'message': 'I do not like it',
+      'date': '2021-01-01 12:00:00'
+    },
+    {
+      'name': 'Biggi Man',
+      'message': 'i like the service',
+      'date': '2021-01-01 12:00:00'
+    },
+  ];
 
-  static const _imageWidth = 180.0;
-  double _imageOffset = 0.0;
-
-  @override
-  void initState() {
-    final deviceWidth =
-        (window.physicalSize.shortestSide / window.devicePixelRatio);
-    _indexFactor = (8 + _imageWidth) / deviceWidth;
-    _imageOffset = -8 / deviceWidth;
-
-    _scrollController.addListener(() {
-      setState(() {
-        _imageOffset = ((_scrollController.offset - 8) / deviceWidth);
-      });
-    });
-    super.initState();
+  Widget commentChild(data) {
+    return ListView.builder(
+      itemCount: data.length,
+      
+      itemBuilder: (context, i) {
+      return   Padding(
+            padding: const EdgeInsets.fromLTRB(2.0, 8.0, 2.0, 0.0),
+            child: ListTile(
+              leading: GestureDetector(
+                onTap: () async {
+                  // Display the image in large form.
+                  print("Comment Clicked");
+                },
+                child: Container(
+                  height: 50.0,
+                  width: 50.0,
+                  decoration: new BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: new BorderRadius.all(Radius.circular(50))),
+                  child: CircleAvatar(
+                      radius: 50,
+                      backgroundImage: CommentBox.commentImageParser(
+                          imageURLorPath: data[i].data()['pic'])),
+                ),
+              ),
+              title: Text(
+                data[i].data()['userName'],
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text(data[i].data()['content']),
+              trailing: Text("s", style: TextStyle(fontSize: 10)),
+            ),
+          );
+     
+    },
+     
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    providerFalse = Provider.of<HomeProvider>(context);
     return Scaffold(
-      body: SafeArea(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: ListView.separated(
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            controller: _scrollController,
-            separatorBuilder: (_, __) => const SizedBox(width: 8),
-            itemCount: data.length,
-            itemBuilder: (_, index) => GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Details(
-                          index: index, hero: "${data[index]["city"]}$index")),
-                );
-              },
-              child: SizedBox(
-                height: 240,
-                width: 200,
-                child: Card(
-                  elevation: 3,
-                  // color: Colors.red,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
-                          child: ModelItems(
-                              index: index,
-                              imageWidth: MediaQuery.of(context).size.width,
-                              imageOffset: _imageOffset,
-                              indexFactor: _indexFactor,
-                              hero: "${data[index]["city"]}$index"),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          alignment: Alignment.centerLeft,
-                          // color: Colors.green,
-                          width: double.infinity,
-                          margin: const EdgeInsets.only(
-                              left: 15, bottom: 10, right: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                data[index]["city"],
-                                style: const TextStyle(
-                                  color: kSecondaryColor,
-                                  fontSize: 22,
-                                  letterSpacing: 1.3,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.ac_unit,
-                                    color: kSecondaryColor.withOpacity(0.5),
-                                    size: 18,
-                                  ),
-                                  const SizedBox(width: 2),
-                                  Text(
-                                    data[index]["city"],
-                                    style: TextStyle(
-                                      color: kSecondaryColor.withOpacity(0.5),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
+      appBar: AppBar(
+        title: Text(
+          "Visitors Comments",
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'Montserrat',
           ),
         ),
+        backgroundColor: Colors.blue.shade600,
       ),
+      body: Container(
+        child: commentChild(providerFalse.userComments) ),
     );
   }
 }

@@ -1,12 +1,11 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
 import 'package:irecommend/screens/home/provider/homeProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:sentiment_dart/sentiment_dart.dart';
 
 class TestMe extends StatefulWidget {
   @override
@@ -14,7 +13,7 @@ class TestMe extends StatefulWidget {
 }
 
 class _TestMeState extends State<TestMe> {
- late  HomeProvider providerFalse;
+  late HomeProvider providerFalse;
   final formKey = GlobalKey<FormState>();
   final TextEditingController commentController = TextEditingController();
   List filedata = [
@@ -65,7 +64,7 @@ class _TestMeState extends State<TestMe> {
                 ),
               ),
               title: Text(
-               data[i].data()['userName'],
+                data[i].data()['userName'],
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               subtitle: Text(data[i].data()['content']),
@@ -78,7 +77,7 @@ class _TestMeState extends State<TestMe> {
 
   @override
   Widget build(BuildContext context) {
-     providerFalse = Provider.of<HomeProvider>(context);
+    providerFalse = Provider.of<HomeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -97,23 +96,44 @@ class _TestMeState extends State<TestMe> {
           labelText: 'Write a comment...',
           errorText: 'Comment cannot be blank',
           withBorder: false,
-          sendButtonMethod: () {
+          sendButtonMethod: () async {
             if (formKey.currentState!.validate()) {
               print(commentController.text);
-              FirebaseFirestore.instance.collection("data").doc(providerFalse.detailPage["uid"]).collection("comments").add({
-                "userName":"anis",
+              SentimentResult s = await Sentiment.analysis(commentController.text,emoji: true);
+              
+              FirebaseFirestore.instance
+                  .collection("data")
+                  .doc(providerFalse.detailPage["uid"])
+                  .collection("comments")
+                  .add({
+                "userName": providerFalse.userData["nom"] +
+                    providerFalse.userData["prenom"],
                 "content": commentController.text,
-                "date":Timestamp.now()
+                "score":s.score,
+                "date": Timestamp.now()
+              }).then((value) {
+                FirebaseFirestore.instance
+                    .collection("users")
+                    .doc(providerFalse.userData["uid"])
+                    .collection("comments")
+                    .add({
+                  "userName": providerFalse.userData["nom"] +
+                      providerFalse.userData["prenom"],
+                  "content": commentController.text,
+                  "date": Timestamp.now()
+                });
+              }).then((value) {
+                commentController.clear();
               });
-              setState(() {
-                var value = {
-                  'name': 'New User',
-                  'message': commentController.text,
-                  'date': '2021-01-01 12:00:00'
-                };
-                filedata.insert(0, value);
-              });
-              commentController.clear();
+              // setState(() {
+              //   var value = {
+              //     'name': 'New User',
+              //     'message': commentController.text,
+              //     'date': '2021-01-01 12:00:00'
+              //   };
+              //   filedata.insert(0, value);
+              // });
+              // commentController.clear();
               FocusScope.of(context).unfocus();
             } else {
               print("Not validated");
