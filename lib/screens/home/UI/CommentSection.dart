@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
@@ -100,7 +102,9 @@ class _TestMeState extends State<TestMe> {
             if (formKey.currentState!.validate()) {
               print(commentController.text);
               SentimentResult s = await Sentiment.analysis(commentController.text,emoji: true);
-              
+
+              log(s.toString());
+              log(s.words.all.length.toString());
               FirebaseFirestore.instance
                   .collection("data")
                   .doc(providerFalse.detailPage["uid"])
@@ -109,7 +113,7 @@ class _TestMeState extends State<TestMe> {
                 "userName": providerFalse.userData["nom"] +
                     providerFalse.userData["prenom"],
                 "content": commentController.text,
-                "score":s.score,
+                "score":s.comparative,
                 "date": Timestamp.now()
               }).then((value) {
                 FirebaseFirestore.instance

@@ -48,6 +48,7 @@ class HomeProvider extends ChangeNotifier {
       userData = event.data();
       getFavorites();
       getUserComments();
+ 
       notifyListeners();
     });
   }
@@ -80,6 +81,7 @@ class HomeProvider extends ChangeNotifier {
       for (int i = 0; i < commentsL.length; i++) {
         allComments = allComments + commentsL[i].data()["score"];
       }
+      allComments = allComments / commentsL.length;
       firestore
           .collection("data")
           .doc(uid)
@@ -104,7 +106,9 @@ class HomeProvider extends ChangeNotifier {
       }
     }
     categoryL = categoryLL;
-
+firestore.collection("users").doc(user.uid).update({
+  "lastClicked":type,
+});
     notifyListeners();
   }
 
@@ -131,22 +135,52 @@ class HomeProvider extends ChangeNotifier {
     });
   }
 
-  getMostViewd(){
+  getMostViewd() {
     log("hey do u see me");
-    firestore.collection("data").where("views",isGreaterThan: 1).orderBy("views",descending: true).get().then((value){
-categoryL=value.docs;
+    firestore
+        .collection("data")
+        .where("views", isGreaterThan: 1)
+        .orderBy("views", descending: true)
+        .get()
+        .then((value) {
+      categoryL = value.docs;
 
-      log("this is views"+value.docs[0].data()["views"].toString());
+      log("this is views" + value.docs[0].data()["views"].toString());
       notifyListeners();
     });
   }
-  getMostliked(){
-    log("hey do u see me");
-    firestore.collection("data").where("liked",isGreaterThan: 1).orderBy("liked").get().then((value){
-categoryL=value.docs;
 
-      log("this is views"+value.docs[0].data()["views"].toString());
+  getMostliked() {
+    log("hey do u see me");
+    firestore
+        .collection("data")
+        .where("liked", isGreaterThan: 1)
+        .orderBy("liked")
+        .get()
+        .then((value) {
+      categoryL = value.docs;
+
+      log("this is views" + value.docs[0].data()["views"].toString());
       notifyListeners();
     });
+  }
+
+  geteRecommanded() {
+    log("hey recommanded u see me");
+    categoryL=[];
+    notifyListeners();
+    firestore
+        .collection("data")
+        .where("overallS", isGreaterThan: 0.1).orderBy("overallS",descending: true).where("category",isEqualTo: userData["lastClicked"]).where("liked").orderBy("liked",descending: true)
+        .get()
+        .then((value) {
+log("this is here ");
+
+      categoryL = value.docs;
+
+      log("this is data " + value.docs[0].data()["name"].toString());
+     notifyListeners();
+    });
+     
   }
 }

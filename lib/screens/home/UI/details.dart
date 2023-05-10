@@ -1,11 +1,13 @@
-// ignore_for_file: unnecessary_const
+// ignore_for_file: unnecessary_const, prefer_const_constructors
 
+import 'dart:async';
 import 'dart:developer';
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:irecommend/data/data.dart';
 import 'package:irecommend/screens/home/UI/CommentSection.dart';
 import 'package:irecommend/screens/home/provider/homeProvider.dart';
@@ -52,7 +54,19 @@ class DdetailsState extends State<Details> {
       }
     });
   }
+ final Completer<GoogleMapController> _controllerm =
+      Completer<GoogleMapController>();
 
+  static const CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14.4746,
+  );
+
+  static const CameraPosition _kLake = CameraPosition(
+      bearing: 192.8334901395799,
+      target: LatLng(37.43296265331129, -122.08832357078792),
+      tilt: 59.440717697143555,
+      zoom: 19.151926040649414);
   @override
   Widget build(BuildContext context) {
     double displayWidth = MediaQuery.of(context).size.width;
@@ -249,42 +263,52 @@ class DdetailsState extends State<Details> {
                   decoration: const BoxDecoration(
                       color: Colors.red,
                       borderRadius: BorderRadius.all(Radius.circular(14)),
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/map.jpg"),
-                          fit: BoxFit.cover)),
-                ),
+                    ),
+                    child: GoogleMap( mapType: MapType.normal,
+        initialCameraPosition: _kGooglePlex,
+        onMapCreated: (GoogleMapController controller) {
+         _controllerm.complete();
+        },
+      ),
+                    
+                    ),
+
+
+                    
+                
               ],
             ),
           )),
-          Container(
-              margin: EdgeInsets.all(displayWidth * .05),
-              height: displayWidth * .155,
-              alignment: Alignment.center,
-              decoration: const BoxDecoration(
-                  color: Color(0xff140c47),
-                  borderRadius: BorderRadius.all(Radius.circular(35))),
-              child: GestureDetector(
-                onTap: () => Navigator.of(context).pop(),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      "Book Now ",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(width: 5),
-                    Icon(
-                      Icons.check,
-                      color: Colors.white,
-                    )
-                  ],
-                ),
-              )),
+          // Container(
+          //     margin: EdgeInsets.all(displayWidth * .05),
+          //     height: displayWidth * .155,
+          //     alignment: Alignment.center,
+          //     decoration: const BoxDecoration(
+          //         color: Color(0xff140c47),
+          //         borderRadius: BorderRadius.all(Radius.circular(35))),
+          //     child: GestureDetector(
+          //       onTap: () => Navigator.of(context).pop(),
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.center,
+          //         children: const [
+          //           Text(
+          //             "Book Now ",
+          //             style: TextStyle(
+          //               color: Colors.white,
+          //               fontSize: 18,
+          //               fontFamily: 'Montserrat',
+          //               fontWeight: FontWeight.bold,
+          //             ),
+          //           ),
+          //           SizedBox(width: 5),
+          //           Icon(
+          //             Icons.check,
+          //             color: Colors.white,
+          //           )
+          //         ],
+          //       ),
+          //     )),
+       
         ],
       ),
     );

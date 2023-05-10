@@ -220,9 +220,12 @@ class _HomeState extends State<Home> {
                         }else if(category=="All"){
                           log("this i clicked");
                           providerFalse.getData();
-                        }else if(category=="All"){
+                        }else if(category=="Most Liked"){
                           log("this i clicked");
                           providerFalse.getMostliked();
+                        }else if(category=="Recommended"){
+                          log("this i clicked");
+                          providerFalse.geteRecommanded();
                         }
                       },
                       child: Text(
