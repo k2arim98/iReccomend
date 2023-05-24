@@ -46,7 +46,7 @@ class _HomeState extends State<Home> {
                     context, MaterialPageRoute(builder: (ctx) => LoginPage()));
               },
               child: Text("sign out"),
-            ))
+            )),Divider(color: Colors.black,height: 8,thickness: 1,)
           ],
         ),
       ),
@@ -226,6 +226,8 @@ class _HomeState extends State<Home> {
                         }else if(category=="Recommended"){
                           log("this i clicked");
                           providerFalse.geteRecommanded();
+                        }else if(category=="similair"){
+                          providerFalse.getsimilair();
                         }
                       },
                       child: Text(

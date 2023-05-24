@@ -60,7 +60,7 @@ List data_2 = [
   {"name": 'shops', 'image': 'assets/images/flaye.png', 'index': 4},
   {"name": 'forest', 'image': 'assets/images/beach.png', 'index': 5},
 ];
-final categoryList = ["All",'Recommended', 'Most Viewd', 'Most Liked'];
+final categoryList = ["All",'Recommended',"similair", 'Most Viewd', 'Most Liked'];
 
 // Colors
 const kAvatarColor = Color(0xffffdbc9);

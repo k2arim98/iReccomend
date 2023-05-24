@@ -261,7 +261,7 @@ class DdetailsState extends State<Details> {
                   margin:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   decoration: const BoxDecoration(
-                      color: Colors.red,
+                      
                       borderRadius: BorderRadius.all(Radius.circular(14)),
                     ),
                     child: GoogleMap( mapType: MapType.normal,
@@ -346,7 +346,7 @@ class DdetailsState extends State<Details> {
             child: GestureDetector(
               onTap: () {
                 log("favorite buttton clicked");
-                FirebaseFirestore.instance.collection("users").doc(provid.userData["uid"]).collection("favorite").add(provid.detailPage);
+                FirebaseFirestore.instance.collection("users").doc(provid.userData["uid"]).collection("favorite").doc(provid.detailPage["name"]).set(provid.detailPage);
                 FirebaseFirestore.instance.collection("data").doc(provid.detailPage["uid"]).update({
                   "liked":provid.detailPage["liked"]+1
                 });

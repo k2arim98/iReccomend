@@ -47,7 +47,8 @@ homeProvider = Provider.of<HomeProvider>(context);
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          child: ListView.separated(
+          child: 
+          ListView.separated(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 8),
             controller: _scrollController,
@@ -136,6 +137,7 @@ homeProvider = Provider.of<HomeProvider>(context);
               ),
             ),
           ),
+    
         ),
       ),
     );

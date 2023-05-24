@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:irecommend/data/data.dart';
+import 'package:irecommend/providers/appState.dart';
 import 'package:irecommend/screens/home/UI/details.dart';
 import 'package:irecommend/screens/home/provider/homeProvider.dart';
 import 'package:provider/provider.dart';
@@ -28,9 +29,10 @@ class _ModelState extends State<Model> {
   late final double _indexFactor;
   HomeProvider? providerTrue;
   HomeProvider? providerFalse;
+  AppState? appState;
   static const _imageWidth = 180.0;
   double _imageOffset = 0.0;
-
+int p=0;
   @override
   void initState() {
     final deviceWidth =
@@ -58,7 +60,7 @@ class _ModelState extends State<Model> {
   Widget build(BuildContext context) {
     providerTrue = Provider.of<HomeProvider>(context, listen: true);
     providerFalse = Provider.of<HomeProvider>(context);
-
+appState=Provider.of<AppState>(context);
     return Column(
       children: [
         SizedBox(
@@ -69,10 +71,13 @@ class _ModelState extends State<Model> {
             controller: _scrollController,
             scrollDirection: Axis.horizontal,
             separatorBuilder: (_, __) => SizedBox(width: widget.spacing),
-            itemCount: providerFalse!.categoryL.length,
+            itemCount: providerFalse!.categoryL.length>5?5:providerFalse!.categoryL.length,
             itemBuilder: (_, index) => GestureDetector(
               onTap: () {
+           
+                 
                 providerFalse!.setDetailPage(providerFalse!.categoryL[index].data());
+              
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -118,6 +123,7 @@ class _ModelState extends State<Model> {
                             children: [
                               Text(
                                 providerFalse!.categoryL[index].data()["name"],
+                                overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
                                   color: kSecondaryColor,
                                   fontSize: 22,

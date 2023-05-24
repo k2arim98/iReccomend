@@ -34,7 +34,7 @@ class HomeProvider extends ChangeNotifier {
       log(event.docs[0].data()["rating"].toString());
       categoryL = event.docs;
       categorySave = event.docs;
-      log("im i here?");
+      log("im i here?" + categoryL[0]["tags"].toString());
       loading = false;
       notifyListeners();
     });
@@ -48,19 +48,48 @@ class HomeProvider extends ChangeNotifier {
       userData = event.data();
       getFavorites();
       getUserComments();
- 
+
       notifyListeners();
     });
   }
 
   setDetailPage(Map<String, dynamic> data) {
     detailPage = data;
+    List v = data["tags"];
+    log("first entry");
     getCommentData(detailPage["uid"], detailPage["views"]);
-    firestore
-        .collection("data")
-        .doc(detailPage["uid"])
-        .snapshots()
-        .listen((event) {});
+    log(v.length.toString());
+    for (var j = 0; j < categorySave.length; j++) {
+      log("second entry");
+      var nums=0;
+      List lts = categorySave[j]["tags"];
+      if (categorySave[j]["name"] == data["name"]) {
+        log("bro idk");
+      } else {
+        log("third entry");
+        v.forEach((element) {
+          log("forth entry");
+          for (var i = 0; i < lts.length; i++) {
+            log("fifth entry");
+            if (element==lts[i]) {
+              log("six entry");
+              nums++;
+            }
+          }
+        });
+
+        if (nums>0) {
+             firestore
+        .collection("users")
+        .doc(user.uid)
+        .collection("similair").doc(categorySave[j]["name"]).set(categorySave[j].data());
+        }
+      }
+
+      log("vsdfsdfsdfsdfsd");
+    }
+
+ 
     notifyListeners();
   }
 
@@ -106,9 +135,9 @@ class HomeProvider extends ChangeNotifier {
       }
     }
     categoryL = categoryLL;
-firestore.collection("users").doc(user.uid).update({
-  "lastClicked":type,
-});
+    firestore.collection("users").doc(user.uid).update({
+      "lastClicked": type,
+    });
     notifyListeners();
   }
 
@@ -164,23 +193,37 @@ firestore.collection("users").doc(user.uid).update({
       notifyListeners();
     });
   }
+ getsimilair() {
+    log("hey do u see me");
+    firestore
+        .collection("users")
+        .doc(user.uid).collection("similair")
+        .snapshots().listen((value) {
+      categoryL = value.docs;
 
+      
+      notifyListeners();
+    });
+  }
   geteRecommanded() {
     log("hey recommanded u see me");
-    categoryL=[];
+    categoryL = [];
     notifyListeners();
     firestore
         .collection("data")
-        .where("overallS", isGreaterThan: 0.1).orderBy("overallS",descending: true).where("category",isEqualTo: userData["lastClicked"]).where("liked").orderBy("liked",descending: true)
+        .where("overallS", isGreaterThan: 0.1)
+        .orderBy("overallS", descending: true)
+        .where("category", isEqualTo: userData["lastClicked"])
+        .where("liked")
+        .orderBy("liked", descending: true)
         .get()
         .then((value) {
-log("this is here ");
+      log("this is here ");
 
       categoryL = value.docs;
 
       log("this is data " + value.docs[0].data()["name"].toString());
-     notifyListeners();
+      notifyListeners();
     });
-     
   }
 }
