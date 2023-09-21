@@ -4,7 +4,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:irecommend/auth/auth.dart';
-
+import 'package:irecommend/utility/constant.dart';
 import 'package:irecommend/data/data.dart';
 import 'package:irecommend/main.dart';
 import 'package:irecommend/providers/appState.dart';
@@ -21,7 +21,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String picked="All";
+  String picked = "All";
   HomeProvider providerTrue;
   HomeProvider providerFalse;
   AppState appState;
@@ -32,21 +32,45 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     providerTrue = Provider.of<HomeProvider>(context, listen: true);
     providerFalse = Provider.of<HomeProvider>(context);
-     appState= Provider.of<AppState>(context);
+    appState = Provider.of<AppState>(context);
     return Scaffold(
       key: _scaffoldKey,
       endDrawer: Drawer(
-        child: Column(
+        child: ListView(
           children: [
             DrawerHeader(
-                child: TextButton(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 15, 29, 161),
+                image: DecorationImage(
+                  image: AssetImage("assets/images/cover.jpg"),
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+            Divider(
+              color: Colors.black38.withOpacity(0.8),
+              endIndent: 20,
+              indent: 20,
+              height: 4,
+            ),
+            ListTile(
+              leading: Icon(Icons.account_box),
+              title: Text("About"),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(Icons.contact_mail),
+              title: Text("Contact"),
+              onTap: () {},
+            ),
+            TextButton(
               onPressed: () {
                 AuthService().signOut(context);
                 Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (ctx) => LoginPage()));
               },
               child: Text("sign out"),
-            )),Divider(color: Colors.black,height: 8,thickness: 1,)
+            )
           ],
         ),
       ),
@@ -110,7 +134,7 @@ class _HomeState extends State<Home> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                 'Where do',
+                  'Looks Like',
                   style: TextStyle(
                     color: kSecondaryColor.withOpacity(0.6),
                     fontSize: 22,
@@ -119,7 +143,7 @@ class _HomeState extends State<Home> {
                 ),
                 const SizedBox(height: 4),
                 const Text(
-                  'you want to go?',
+                  'you need help',
                   style: TextStyle(
                     color: kSecondaryColor,
                     fontSize: 24,
@@ -136,9 +160,9 @@ class _HomeState extends State<Home> {
               _scaffoldKey.currentState.openEndDrawer();
             },
             child: const CircleAvatar(
-              backgroundColor: kAvatarColor,
+              backgroundColor: Colors.white,
               radius: 26,
-              backgroundImage: AssetImage("assets/images/HotelAz.jpg"),
+              backgroundImage: AssetImage("assets/images/avatar.png"),
             ),
           ),
         ],
@@ -153,23 +177,20 @@ class _HomeState extends State<Home> {
         height: 46,
         padding: const EdgeInsets.symmetric(horizontal: 24),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(28),
-          color: kSecondaryColor.withOpacity(0.1),
-        ),
+            borderRadius: BorderRadius.circular(28),
+            color: Color.fromARGB(255, 26, 23, 65)),
         child: Row(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Icon(
               Icons.search,
-              color: kSecondaryColor.withOpacity(0.6),
+              color: Style.white,
               size: 20,
             ),
             const SizedBox(width: 5),
             Text(
-              'Discover a city ',
-              style: TextStyle(
-                color: kSecondaryColor.withOpacity(0.5),
-              ),
+              ' Search ... ',
+              style: TextStyle(color: Colors.white),
             ),
             const Spacer(),
           ],
@@ -186,7 +207,7 @@ class _HomeState extends State<Home> {
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: _padding),
           child: Text(
-            'Explore Cities',
+            'Explore Jobs',
             style: TextStyle(
               color: kSecondaryColor,
               fontSize: 20,
@@ -205,7 +226,6 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              
                 const SizedBox(width: 10),
                 for (final category in categoryList)
                   Container(
@@ -213,27 +233,29 @@ class _HomeState extends State<Home> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                          picked=category;
+                          picked = category;
                         });
-                        if(category=="Most Viewd"){
+                        if (category == "Most Viewd") {
                           providerFalse.getMostViewd();
-                        }else if(category=="All"){
+                        } else if (category == "All") {
                           log("this i clicked");
                           providerFalse.getData();
-                        }else if(category=="Most Liked"){
+                        } else if (category == "Most Liked") {
                           log("this i clicked");
                           providerFalse.getMostliked();
-                        }else if(category=="Recommended"){
+                        } else if (category == "Recommended") {
                           log("this i clicked");
                           providerFalse.geteRecommanded();
-                        }else if(category=="similair"){
+                        } else if (category == "For You") {
                           providerFalse.getsimilair();
                         }
                       },
                       child: Text(
                         category,
                         style: TextStyle(
-                          color:picked==category?Colors.blue: kSecondaryColor.withOpacity(0.6),
+                          color: picked == category
+                              ? Color.fromARGB(255, 16, 15, 30)
+                              : kSecondaryColor.withOpacity(0.6),
                           fontSize: 16,
                         ),
                       ),

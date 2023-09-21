@@ -12,10 +12,12 @@ import 'package:irecommend/data/data.dart';
 import 'package:irecommend/screens/home/UI/CommentSection.dart';
 import 'package:irecommend/screens/home/provider/homeProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class Details extends StatefulWidget {
   final int index;
   final String hero;
+
   const Details({Key? key, required this.index, required this.hero})
       : super(key: key);
 
@@ -24,7 +26,7 @@ class Details extends StatefulWidget {
 }
 
 class DdetailsState extends State<Details> {
- late HomeProvider providerFalse;
+  late HomeProvider providerFalse;
   final _controller = ScrollController();
   ScrollPhysics _physics = const ClampingScrollPhysics();
   bool appBarVAR = false;
@@ -54,7 +56,8 @@ class DdetailsState extends State<Details> {
       }
     });
   }
- final Completer<GoogleMapController> _controllerm =
+
+  final Completer<GoogleMapController> _controllerm =
       Completer<GoogleMapController>();
 
   static const CameraPosition _kGooglePlex = CameraPosition(
@@ -72,6 +75,7 @@ class DdetailsState extends State<Details> {
     double displayWidth = MediaQuery.of(context).size.width;
     double displayHeight = MediaQuery.of(context).size.height;
     providerFalse = Provider.of<HomeProvider>(context);
+    double ratings = providerFalse.Ratings as double;
     return Scaffold(
       body: Stack(
         alignment: Alignment.bottomCenter,
@@ -94,12 +98,13 @@ class DdetailsState extends State<Details> {
                       height: displayHeight / 2,
                       width: displayWidth,
                       decoration: BoxDecoration(
-                          color: Colors.red,
+                          color: Color.fromARGB(255, 235, 235, 238),
                           borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(40),
                               bottomRight: Radius.circular(40)),
                           image: DecorationImage(
-                              image: AssetImage(providerFalse.detailPage["image"]),
+                              image:
+                                  AssetImage(providerFalse.detailPage["image"]),
                               fit: BoxFit.cover)),
                       child: Stack(
                         fit: StackFit.expand,
@@ -111,14 +116,6 @@ class DdetailsState extends State<Details> {
                                 ? CrossFadeState.showSecond
                                 : CrossFadeState.showFirst,
                             duration: const Duration(milliseconds: 400),
-                          ),
-                          AnimatedCrossFade(
-                            firstChild: Container(),
-                            secondChild: bottomBarImages(),
-                            crossFadeState: appBarVAR
-                                ? CrossFadeState.showSecond
-                                : CrossFadeState.showFirst,
-                            duration: const Duration(milliseconds: 600),
                           ),
                         ],
                       ),
@@ -137,7 +134,7 @@ class DdetailsState extends State<Details> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                          providerFalse.detailPage["name"],
+                            providerFalse.detailPage["name"],
                             style: const TextStyle(
                               color: kSecondaryColor,
                               fontSize: 25,
@@ -147,31 +144,8 @@ class DdetailsState extends State<Details> {
                           ),
                           const SizedBox(height: 5),
                           Text(
-                           providerFalse.detailPage["category"],
+                            providerFalse.detailPage["category"],
                             style: const TextStyle(
-                              color: kSecondaryColor,
-                              fontSize: 15,
-                              fontFamily: 'Montserrat',
-                            ),
-                          )
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: const [
-                          Text(
-                            "\$20",
-                            style: TextStyle(
-                              color: kSecondaryColor,
-                              fontSize: 24,
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            "per person",
-                            style: TextStyle(
                               color: kSecondaryColor,
                               fontSize: 15,
                               fontFamily: 'Montserrat',
@@ -189,23 +163,21 @@ class DdetailsState extends State<Details> {
                   height: 4,
                 ),
                 const SizedBox(height: 15),
-                const ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Color(0xffeaeaea),
-                    radius: 26,
-                    child: Icon(
-                      Icons.pin_drop,
-                      color: kSecondaryColor,
-                    ),
+                const SizedBox(height: 15),
+                RatingBar.builder(
+                  initialRating: 4,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: Colors.blue,
                   ),
-                  title: Text(
-                    "Pizza del Colosseum 1, Rome",
-                    style: TextStyle(
-                      color: kSecondaryColor,
-                      fontSize: 15,
-                      fontFamily: 'Montserrat',
-                    ),
-                  ),
+                  onRatingUpdate: (rating) {
+                    print(rating);
+                  },
                 ),
                 ListTile(
                   isThreeLine: false,
@@ -247,7 +219,7 @@ class DdetailsState extends State<Details> {
                           "See Visitors Comments",
                           style: TextStyle(
                             color: Colors.blue,
-                            fontSize: 12,
+                            fontSize: 15,
                             fontFamily: 'Montserrat',
                           ),
                         ),
@@ -261,21 +233,22 @@ class DdetailsState extends State<Details> {
                   margin:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   decoration: const BoxDecoration(
-                      
-                      borderRadius: BorderRadius.all(Radius.circular(14)),
+                    borderRadius: BorderRadius.all(Radius.circular(14)),
+                  ),
+                  child: GoogleMap(
+                    myLocationEnabled: true,
+                    myLocationButtonEnabled: true,
+                    mapType: MapType.normal,
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(providerFalse.detailPage["lat"],
+                          providerFalse.detailPage["long"]),
+                      zoom: 14.4746,
                     ),
-                    child: GoogleMap( mapType: MapType.normal,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-         _controllerm.complete();
-        },
-      ),
-                    
-                    ),
-
-
-                    
-                
+                    onMapCreated: (GoogleMapController controller) {
+                      _controllerm.complete();
+                    },
+                  ),
+                ),
               ],
             ),
           )),
@@ -308,7 +281,6 @@ class DdetailsState extends State<Details> {
           //         ],
           //       ),
           //     )),
-       
         ],
       ),
     );
@@ -346,10 +318,28 @@ class DdetailsState extends State<Details> {
             child: GestureDetector(
               onTap: () {
                 log("favorite buttton clicked");
-                FirebaseFirestore.instance.collection("users").doc(provid.userData["uid"]).collection("favorite").doc(provid.detailPage["name"]).set(provid.detailPage);
-                FirebaseFirestore.instance.collection("data").doc(provid.detailPage["uid"]).update({
-                  "liked":provid.detailPage["liked"]+1
-                });
+                FirebaseFirestore.instance
+                    .collection("users")
+                    .doc(provid.userData["uid"])
+                    .collection("favorite")
+                    .add(provid.detailPage);
+                FirebaseFirestore.instance
+                    .collection("data")
+                    .doc(provid.detailPage["uid"])
+                    .update({"liked": provid.detailPage["liked"] + 1});
+                final snackBar = SnackBar(
+                  content: const Text('Added to Favorites!'),
+                  action: SnackBarAction(
+                    label: 'Undo',
+                    onPressed: () {
+                      // Some code to undo the change.
+                    },
+                  ),
+                );
+
+                // Find the ScaffoldMessenger in the widget tree
+                // and use it to show a SnackBar.
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(32),

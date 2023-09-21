@@ -17,7 +17,7 @@ class _RoutingState extends State<Routing> {
   List routing = [
     const Home(),
     const Another(),
-     Another2(),
+    Another(),
   ];
   @override
   Widget build(BuildContext context) {

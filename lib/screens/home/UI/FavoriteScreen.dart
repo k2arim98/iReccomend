@@ -18,7 +18,7 @@ class Another extends StatefulWidget {
 
 class _AnotherState extends State<Another> {
   final ScrollController _scrollController = ScrollController();
- late HomeProvider homeProvider;
+  late HomeProvider homeProvider;
   late final double _indexFactor;
 
   static const _imageWidth = 180.0;
@@ -41,14 +41,13 @@ class _AnotherState extends State<Another> {
 
   @override
   Widget build(BuildContext context) {
-homeProvider = Provider.of<HomeProvider>(context);
+    homeProvider = Provider.of<HomeProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          child: 
-          ListView.separated(
+          child: ListView.separated(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 8),
             controller: _scrollController,
@@ -56,12 +55,15 @@ homeProvider = Provider.of<HomeProvider>(context);
             itemCount: homeProvider.favoriteL.length,
             itemBuilder: (_, index) => GestureDetector(
               onTap: () {
-                homeProvider.setDetailPage(homeProvider.favoriteL[index].data());
+                homeProvider
+                    .setDetailPage(homeProvider.favoriteL[index].data());
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => Details(
-                          index: index, hero: "${homeProvider.favoriteL[index].data()["city"]}$index")),
+                          index: index,
+                          hero:
+                              "${homeProvider.favoriteL[index].data()["city"]}$index")),
                 );
               },
               child: SizedBox(
@@ -82,11 +84,13 @@ homeProvider = Provider.of<HomeProvider>(context);
                               horizontal: 10, vertical: 10),
                           child: ModelItems(
                               index: index,
-                               img: homeProvider.favoriteL[index].data()["image"],
+                              img:
+                                  homeProvider.favoriteL[index].data()["image"],
                               imageWidth: MediaQuery.of(context).size.width,
                               imageOffset: _imageOffset,
                               indexFactor: _indexFactor,
-                              hero: "${homeProvider.favoriteL[index].data()["city"]}$index"),
+                              hero:
+                                  "${homeProvider.favoriteL[index].data()["city"]}$index"),
                         ),
                       ),
                       Expanded(
@@ -112,13 +116,14 @@ homeProvider = Provider.of<HomeProvider>(context);
                               Row(
                                 children: [
                                   Icon(
-                                    Icons.ac_unit,
+                                    Icons.location_city_rounded,
                                     color: kSecondaryColor.withOpacity(0.5),
                                     size: 18,
                                   ),
                                   const SizedBox(width: 2),
                                   Text(
-                                  homeProvider.favoriteL[index].data()["city"],
+                                    homeProvider.favoriteL[index]
+                                        .data()["city"],
                                     style: TextStyle(
                                       color: kSecondaryColor.withOpacity(0.5),
                                       fontSize: 16,
@@ -137,7 +142,6 @@ homeProvider = Provider.of<HomeProvider>(context);
               ),
             ),
           ),
-    
         ),
       ),
     );

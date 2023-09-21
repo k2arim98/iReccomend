@@ -1,0 +1,27 @@
+com.example.irecommend.app-jetified-window-java-1.0.0-beta04-0 /Users/KaarimKh/.gradle/caches/transforms-3/0738edd5f88f65e42d4602f987275a72/transformed/jetified-window-java-1.0.0-beta04/res
+com.example.irecommend.app-jetified-play-services-maps-18.1.0-1 /Users/KaarimKh/.gradle/caches/transforms-3/2ced7dcf04ecfe827bad18c8cc14e0d0/transformed/jetified-play-services-maps-18.1.0/res
+com.example.irecommend.app-jetified-play-services-base-18.0.1-2 /Users/KaarimKh/.gradle/caches/transforms-3/2f6f3f5e320d0d146dd031e854458ac1/transformed/jetified-play-services-base-18.0.1/res
+com.example.irecommend.app-jetified-annotation-experimental-1.1.0-3 /Users/KaarimKh/.gradle/caches/transforms-3/369ba75e4c7f33583f011c220195f98e/transformed/jetified-annotation-experimental-1.1.0/res
+com.example.irecommend.app-browser-1.4.0-4 /Users/KaarimKh/.gradle/caches/transforms-3/5cf9011be3a8da42f45f935b08559178/transformed/browser-1.4.0/res
+com.example.irecommend.app-jetified-firebase-common-20.3.2-5 /Users/KaarimKh/.gradle/caches/transforms-3/6c05ddf7e1acf46114a15c3fa7f1870a/transformed/jetified-firebase-common-20.3.2/res
+com.example.irecommend.app-jetified-play-services-basement-18.1.0-6 /Users/KaarimKh/.gradle/caches/transforms-3/9419681db41a7ffe6ce00dd0ae467888/transformed/jetified-play-services-basement-18.1.0/res
+com.example.irecommend.app-jetified-window-1.0.0-beta04-7 /Users/KaarimKh/.gradle/caches/transforms-3/af20e7cd6b1badf1904ee00eac176264/transformed/jetified-window-1.0.0-beta04/res
+com.example.irecommend.app-core-1.6.0-8 /Users/KaarimKh/.gradle/caches/transforms-3/b8203fe242bcd1c096ac2fef8b83226d/transformed/core-1.6.0/res
+com.example.irecommend.app-debug-9 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/android/app/src/debug/res
+com.example.irecommend.app-main-10 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/android/app/src/main/res
+com.example.irecommend.app-pngs-11 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/build/app/generated/res/pngs/debug
+com.example.irecommend.app-resValues-12 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/build/app/generated/res/resValues/debug
+com.example.irecommend.app-rs-13 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/build/app/generated/res/rs/debug
+com.example.irecommend.app-mergeDebugResources-14 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir
+com.example.irecommend.app-mergeDebugResources-15 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/build/app/intermediates/incremental/debug/mergeDebugResources/stripped.dir
+com.example.irecommend.app-merged_res-16 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/build/app/intermediates/merged_res/debug
+com.example.irecommend.app-packaged_res-17 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/build/cloud_firestore/intermediates/packaged_res/debug
+com.example.irecommend.app-packaged_res-18 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/build/firebase_auth/intermediates/packaged_res/debug
+com.example.irecommend.app-packaged_res-19 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/build/firebase_core/intermediates/packaged_res/debug
+com.example.irecommend.app-packaged_res-20 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/build/flutter_keyboard_visibility/intermediates/packaged_res/debug
+com.example.irecommend.app-packaged_res-21 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/build/flutter_plugin_android_lifecycle/intermediates/packaged_res/debug
+com.example.irecommend.app-packaged_res-22 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/build/fluttertoast/intermediates/packaged_res/debug
+com.example.irecommend.app-packaged_res-23 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/build/google_maps_flutter_android/intermediates/packaged_res/debug
+com.example.irecommend.app-packaged_res-24 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/build/path_provider_android/intermediates/packaged_res/debug
+com.example.irecommend.app-packaged_res-25 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/build/shared_preferences_android/intermediates/packaged_res/debug
+com.example.irecommend.app-packaged_res-26 /Users/KaarimKh/Documents/flutter/irecommend-3 copy/build/sqflite/intermediates/packaged_res/debug

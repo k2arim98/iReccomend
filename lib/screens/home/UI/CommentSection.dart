@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
+import 'package:irecommend/data/data.dart';
 import 'package:irecommend/screens/home/provider/homeProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:sentiment_dart/sentiment_dart.dart';
@@ -18,29 +19,6 @@ class _TestMeState extends State<TestMe> {
   late HomeProvider providerFalse;
   final formKey = GlobalKey<FormState>();
   final TextEditingController commentController = TextEditingController();
-  List filedata = [
-    {
-      'name': 'Chuks Okwuenu',
-      'message': 'Nice place',
-      'date': '2021-01-01 12:00:00'
-    },
-    {
-      'name': 'Biggi Man',
-      'message': 'Overrated',
-      'date': '2021-01-01 12:00:00'
-    },
-    {
-      'name': 'Tunde Martins',
-      'message': 'I do not like it',
-      'date': '2021-01-01 12:00:00'
-    },
-    {
-      'name': 'Biggi Man',
-      'message': 'i like the service',
-      'date': '2021-01-01 12:00:00'
-    },
-  ];
-
   Widget commentChild(data) {
     return ListView(
       children: [
@@ -93,7 +71,7 @@ class _TestMeState extends State<TestMe> {
       ),
       body: Container(
         child: CommentBox(
-          userImage: CommentBox.commentImageParser(imageURLorPath: ""),
+          //userImage: CommentBox.commentImageParser(imageURLorPath: ""),
           child: commentChild(providerFalse.commentsL),
           labelText: 'Write a comment...',
           errorText: 'Comment cannot be blank',
@@ -101,10 +79,16 @@ class _TestMeState extends State<TestMe> {
           sendButtonMethod: () async {
             if (formKey.currentState!.validate()) {
               print(commentController.text);
-              SentimentResult s = await Sentiment.analysis(commentController.text,emoji: true);
-
+              SentimentResult s =
+                  await Sentiment.analysis(commentController.text, emoji: true);
+              SentimentResult tags = await Sentiment.analysis(
+                  commentController.text,
+                  customLang: customLang); //hashtags analysis
               log(s.toString());
               log(s.words.all.length.toString());
+              //checking if it works
+              log(tags.toString());
+              log(tags.words.all.length.toString());
               FirebaseFirestore.instance
                   .collection("data")
                   .doc(providerFalse.detailPage["uid"])
@@ -113,8 +97,9 @@ class _TestMeState extends State<TestMe> {
                 "userName": providerFalse.userData["nom"] +
                     providerFalse.userData["prenom"],
                 "content": commentController.text,
-                "score":s.comparative,
-                "date": Timestamp.now()
+                "score": s.comparative,
+                "date": Timestamp.now(),
+                "tags": tags.words.good.keys.toList()
               }).then((value) {
                 FirebaseFirestore.instance
                     .collection("users")
@@ -126,18 +111,17 @@ class _TestMeState extends State<TestMe> {
                   "content": commentController.text,
                   "date": Timestamp.now()
                 });
+
+                /*
+                FirebaseFirestore.instance
+                    .collection("data")
+                    .doc(providerFalse.detailPage["uid"])
+                    //updating the hashtag table ({
+                  //"tags": tags.words.good.keys.toList()
+              //  }); */
               }).then((value) {
                 commentController.clear();
               });
-              // setState(() {
-              //   var value = {
-              //     'name': 'New User',
-              //     'message': commentController.text,
-              //     'date': '2021-01-01 12:00:00'
-              //   };
-              //   filedata.insert(0, value);
-              // });
-              // commentController.clear();
               FocusScope.of(context).unfocus();
             } else {
               print("Not validated");
